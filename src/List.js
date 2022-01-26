@@ -40,7 +40,7 @@ export default function List() {
     return (
         <React.Fragment>
             <a className={styles.gitLink}
-                href="https://github.com/wolf-ed/filternames/tree/main/src"
+                href="https://github.com/wolf-ed/filterusers"
                 target="_blank"
                 rel="noreferrer"
             >github.com/wolf-ed</a>
