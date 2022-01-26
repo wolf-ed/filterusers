@@ -1,0 +1,48 @@
+a.gitLink{
+    text-decoration: none;
+    font-family: inherit;
+    display: block;
+    width: fit-content;
+    margin: 3rem auto 1rem auto;
+}
+
+.filterinput {
+margin: 1rem auto 1rem auto;
+font-family: inherit;
+letter-spacing: 1px;
+font-size: 1rem;
+border: 1px solid gray;
+border-radius: 7px;
+padding: 0.5rem;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+.filterinput:hover {
+border: 3px solid #959CA1;
+cursor: pointer;
+}
+
+.filterinput:focus {
+outline: 0;
+}
+
+.usersfound {
+    width: fit-content;
+    margin: 1rem auto 1rem auto;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.ul {
+width: fit-content;
+list-style: none;
+justify-content: center;
+padding: 0;
+margin: 0 auto;
+}
+
+.ul li {
+ font-family: inherit;
+ padding: 5px;
+ margin-left: auto;
+}
