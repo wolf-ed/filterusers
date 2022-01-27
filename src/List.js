@@ -1,6 +1,7 @@
 import { users } from "./data-mock";
 import React, { useState, useEffect } from "react";
-import styles from './List.module.css'
+import styles from './List.module.css';
+import User from "./User/User";
 
 // TO DO:
 // data source: file data-mock.js
@@ -13,7 +14,7 @@ import styles from './List.module.css'
 
 export default function List() {
     const [usersState, setUsersState] = useState([]);
-    const [filteredUsers, setFilteredUsers] = useState([])
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchInput, setSearchInput] = useState('');
     const [startDefault, setStartDefault] = useState(true);
 
@@ -24,8 +25,8 @@ export default function List() {
     }, [])
 
     useEffect(() => {
-        setFilteredUsers(filterInputUsers(usersState, searchInput))
-        setStartDefault(false)
+        setFilteredUsers(filterInputUsers(usersState, searchInput));
+        setStartDefault(false);
     }, [searchInput, usersState])
 
     const filterInputUsers = (array, input) => {
@@ -36,6 +37,24 @@ export default function List() {
     const inputChangeHandler = (event) => {
         setSearchInput(event.target.value)
     }
+
+    let defaultList = usersState.map(user => {
+        return (<User 
+            id={user.id}
+            lastName={user.lastName}
+            firstName={user.firstName}
+            />)
+    })
+
+    let filteredList = filteredUsers.map(user => {
+        return (<User 
+            key={user.id}
+            id={user.id}
+            lastName={user.lastName}
+            firstName={user.firstName}
+            />)
+        
+    });
 
     return (
         <React.Fragment>
@@ -60,18 +79,7 @@ export default function List() {
             }
             <ul className={styles.ul}>
                 {
-                    startDefault
-                        ? usersState.map(user => {
-                            return (<li key={user.id}>
-                                {`${user.id}. ${user.lastName}${user.firstName !== null ? ', ' + user.firstName : ''}`}
-                            </li>)
-                        })
-
-                        : filteredUsers.map(user => {
-                            return (<li key={user.id}>
-                                {`${user.id}. ${user.lastName}${user.firstName !== null ? ', ' + user.firstName : ''}`}
-                            </li>)
-                        })
+                    startDefault ? defaultList : filteredList
                 }
                 {
                     filteredUsers.length === 0 && searchInput.length > 0 ? <p className={styles.usersfound}>No users found</p> : ''
