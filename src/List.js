@@ -22,7 +22,7 @@ export default function List() {
         users.then(
             data => setUsersState(data)
         )
-    }, [])
+    }, []);
 
     useEffect(() => {
         setFilteredUsers(filterInputUsers(usersState, searchInput));
@@ -32,29 +32,37 @@ export default function List() {
     const filterInputUsers = (array, input) => {
         let newArray = array.filter((user) => user.lastName.toUpperCase().includes(input.toUpperCase()));
         return newArray
-    }
+    };
 
     const inputChangeHandler = (event) => {
         setSearchInput(event.target.value)
-    }
+    };
 
     let defaultList = usersState.map(user => {
-        return (<User 
+        return (<User
             id={user.id}
             lastName={user.lastName}
             firstName={user.firstName}
-            />)
-    })
+        />)
+    });
 
     let filteredList = filteredUsers.map(user => {
-        return (<User 
+        return (<User
             key={user.id}
             id={user.id}
             lastName={user.lastName}
             firstName={user.firstName}
-            />)
-        
+        />)
+
     });
+
+    let numberOfUsersFound = filteredUsers.length !== 20 && filteredUsers.length !== 0 ?
+        <p className={styles.usersfound}>
+            {`${filteredUsers.length} user${filteredUsers.length > 1 ? 's' : ''} found:`}
+        </p>
+        : '';
+
+    let warningNoUsersFound = filteredUsers.length === 0 && searchInput.length > 0 ? <p className={styles.usersfound}>No users found</p> : ''
 
     return (
         <React.Fragment>
@@ -69,21 +77,12 @@ export default function List() {
                 placeholder="Filter..."
                 type="text"
                 value={searchInput}
-                onChange={inputChangeHandler} />
-            {
-                filteredUsers.length !== 20 && filteredUsers.length !== 0 ?
-                    <p className={styles.usersfound}>
-                        {`${filteredUsers.length} user${filteredUsers.length > 1 ? 's' : ''} found:`}
-                    </p>
-                    : ''
-            }
+                onChange={inputChangeHandler}
+            />
+            {numberOfUsersFound}
+            {warningNoUsersFound}
             <ul className={styles.ul}>
-                {
-                    startDefault ? defaultList : filteredList
-                }
-                {
-                    filteredUsers.length === 0 && searchInput.length > 0 ? <p className={styles.usersfound}>No users found</p> : ''
-                }
+                {startDefault ? defaultList : filteredList}
             </ul>
         </React.Fragment>
     );
